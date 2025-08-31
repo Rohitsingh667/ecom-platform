@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Confirmation - AI E-commerce{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+    <i class="fas fa-check-circle fa-5x text-success mb-4"></i>
+    <h1 class="text-success">Order Placed Successfully!</h1>
+    <p class="lead">Thank you for your purchase.</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Order Details</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-3"><strong>Order ID:</strong></div>
+                    <div class="col-sm-9">{{ order.id }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-3"><strong>Order Date:</strong></div>
+                    <div class="col-sm-9">{{ order.created_at|date:"F d, Y H:i" }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-3"><strong>Status:</strong></div>
+                    <div class="col-sm-9">
+                        <span class="badge bg-warning">{{ order.get_status_display }}</span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-3"><strong>Total Amount:</strong></div>
+                    <div class="col-sm-9"><strong>₹{{ order.total_amount }}</strong></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-3"><strong>Shipping Address:</strong></div>
+                    <div class="col-sm-9">{{ order.shipping_address|linebreaks }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5>Items Ordered</h5>
+            </div>
+            <div class="card-body">
+                {% for item in order.items.all %}
+                    <div class="row py-2 {% if not forloop.last %}border-bottom{% endif %}">
+                        <div class="col-md-6">
+                            <strong>{{ item.product.name }}</strong>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            Qty: {{ item.quantity }}
+                        </div>
+                        <div class="col-md-2 text-center">
+                            ₹{{ item.price }}
+                        </div>
+                        <div class="col-md-2 text-end">
+                            <strong>₹{{ item.get_total_price }}</strong>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-5">
+    <a href="{% url 'shop:product_list' %}" class="btn btn-primary btn-lg">
+        <i class="fas fa-shopping-bag"></i> Continue Shopping
+    </a>
+</div>
+
+<div class="alert alert-info mt-4">
+    <h6><i class="fas fa-info-circle"></i> What's Next?</h6>
+    <p class="mb-0">
+        You will receive an email confirmation shortly. 
+        You can track your order status in your account dashboard.
+    </p>
+</div>
+{% endblock %}
