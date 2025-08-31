@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from .models import Product, Category, Cart, CartItem, Order, OrderItem, UserInteraction
 from recommendations.ml_engine import get_recommendations
+from django.shortcuts import render, get_object_or_404, redirect
 import json
 
 def product_list(request):
