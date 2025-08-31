@@ -39,6 +39,14 @@ SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 X_FRAME_OPTIONS = 'DENY'
+# Tell Django it's behind a proxy that sets X-Forwarded-Proto
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# Trust Render domains for CSRF
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+]
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = False
