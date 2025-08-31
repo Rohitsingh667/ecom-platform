@@ -1,4 +1,5 @@
 from .settings import *
+from .settings import *
 import os
 import dj_database_url
 
@@ -41,8 +42,9 @@ X_FRAME_OPTIONS = 'DENY'
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = [
-    "https://*.onrender.com",
+CORS_ALLOWED_ORIGINS = []
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.onrender\.com$",
 ]
 
 # Disable debug toolbar in production
